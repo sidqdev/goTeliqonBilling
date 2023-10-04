@@ -1,4 +1,4 @@
-module goTeliqonBilling
+module github.com/sidqdev/goTeliqonBilling
 
 go 1.21.1
 
