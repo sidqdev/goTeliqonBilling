@@ -26,6 +26,7 @@ type ApiUrls struct {
 	OutSystemTransfer string
 	Transaction       string
 	Subscriptions     string
+	OutSystemService  string
 }
 
 type BillingUser struct {
@@ -58,9 +59,10 @@ type Transfer struct {
 }
 
 type OutSystemService struct {
-	UniqueID    string `json:"unique_id"`
-	Title       string `json:"title"`
-	Description string `json:"desciption"`
+	UniqueID    string   `json:"unique_id"`
+	Title       string   `json:"title"`
+	Description string   `json:"desciption"`
+	Cost        *float64 `json:"cost"`
 }
 
 type Transaction struct {

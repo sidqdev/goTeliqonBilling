@@ -38,6 +38,7 @@ func (b *BillingAPI) LoadUrls() {
 		OutSystemTransfer: url + "transfer/out/",
 		Transaction:       url + "transactions/",
 		Subscriptions:     url + "subscriptions/",
+		OutSystemService:  url + "out_system_service/",
 	}
 }
 
@@ -274,6 +275,41 @@ func (b BillingAPI) GetUserTransactions(uniqueID string, filterConfig *Transacti
 	err := b.parseResponse(grequests.Get(b.Urls.Transaction, ro))(&transactions)
 
 	return transactions.Transactions, transactions.Count, err
+}
+
+func (b BillingAPI) GetOutSystemServices() ([]OutSystemService, error) {
+	data := map[string]string{
+		"environment": strconv.Itoa(b.Config.EnvironmentID),
+	}
+	ro := &grequests.RequestOptions{
+		Headers:            b.Headers(),
+		Params:             data,
+		InsecureSkipVerify: true,
+	}
+
+	services := struct {
+		Services []OutSystemService `json:"services"`
+	}{}
+	err := b.parseResponse(grequests.Get(b.Urls.OutSystemService, ro))(&services)
+
+	return services.Services, err
+}
+
+func (b BillingAPI) GetOutSystemService(serviceUniqueID string) (OutSystemService, error) {
+	data := map[string]string{
+		"environment":       strconv.Itoa(b.Config.EnvironmentID),
+		"service_unique_id": serviceUniqueID,
+	}
+	ro := &grequests.RequestOptions{
+		Headers:            b.Headers(),
+		Params:             data,
+		InsecureSkipVerify: true,
+	}
+
+	service := OutSystemService{}
+	err := b.parseResponse(grequests.Get(b.Urls.OutSystemService, ro))(&service)
+
+	return service, err
 }
 
 func NewBillingAPI(config Config) (BillingAPI, error) {
