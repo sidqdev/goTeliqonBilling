@@ -250,7 +250,7 @@ func (b BillingAPI) OutSystemTransfer(params OutSystemTransfer) (Transaction, er
 	return transaction, err
 }
 
-func (b BillingAPI) GetUserTransactions(uniqueID string, filterConfig *TransactionFilterConfig) ([]Transaction, error) {
+func (b BillingAPI) GetUserTransactions(uniqueID string, filterConfig *TransactionFilterConfig) ([]Transaction, int, error) {
 	data := map[string]string{
 		"environment": strconv.Itoa(b.Config.EnvironmentID),
 		"unique_id":   uniqueID,
@@ -269,10 +269,11 @@ func (b BillingAPI) GetUserTransactions(uniqueID string, filterConfig *Transacti
 	}
 	transactions := struct {
 		Transactions []Transaction `json:"transactions"`
+		Count        int           `json:"count"`
 	}{}
 	err := b.parseResponse(grequests.Get(b.Urls.Transaction, ro))(&transactions)
 
-	return transactions.Transactions, err
+	return transactions.Transactions, transactions.Count, err
 }
 
 func NewBillingAPI(config Config) (BillingAPI, error) {

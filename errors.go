@@ -19,6 +19,8 @@ var (
 	ErrTransactionCannotBeProcessed         = errors.New("transaction cannot be processed because it isnot pending")
 	ErrBillingUserAlreadyExists             = errors.New("billing user already exists")
 
+	ErrPanic = errors.New("something wrong")
+
 	ErrorsRegister = map[string]error{
 		"0001": ErrLowBalance,
 		"0002": ErrCouponAlreadyUsed,
@@ -35,9 +37,8 @@ var (
 		"0013": ErrTransactionCannotBeReverted,
 		"0014": ErrTransactionCannotBeProcessed,
 		"0015": ErrBillingUserAlreadyExists,
+		"xxxx": ErrPanic,
 	}
 
 	ErrIncorrectApiUrl = errors.New("url have to ends on /")
-
-	ErrPanic = errors.New("something wrong")
 )
