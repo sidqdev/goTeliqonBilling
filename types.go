@@ -121,6 +121,7 @@ type TransactionFilterConfig struct {
 	FromDate *time.Time
 	ToDate   *time.Time
 	OrderBy  *string
+	Query    *string
 }
 
 func (t TransactionFilterConfig) ToParamsMap() map[string]string {
@@ -140,5 +141,9 @@ func (t TransactionFilterConfig) ToParamsMap() map[string]string {
 	if t.ToDate != nil {
 		params["to_date"] = t.ToDate.Format(time.RFC3339)
 	}
+	if t.Query != nil {
+		params["query"] = *t.Query
+	}
+
 	return params
 }
