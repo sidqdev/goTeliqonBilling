@@ -223,7 +223,7 @@ func (b BillingAPI) InSystemTransfer(params InSystemTransferParams) (Transaction
 	return transaction, err
 }
 
-func (b BillingAPI) OutSystemTransfer(params OutSystemTransfer) (Transaction, error) {
+func (b BillingAPI) OutSystemTransfer(params OutSystemTransferParams) (Transaction, error) {
 	outSystemService := &params.ServiceUniqueID
 	if params.ServiceUniqueID == "" {
 		outSystemService = nil
@@ -277,9 +277,12 @@ func (b BillingAPI) GetUserTransactions(uniqueID string, filterConfig *Transacti
 	return transactions.Transactions, transactions.Count, err
 }
 
-func (b BillingAPI) GetOutSystemServices() ([]OutSystemService, error) {
+func (b BillingAPI) GetOutSystemServices(filterConfig *OutSystemServicesFilterConfig) ([]OutSystemService, error) {
 	data := map[string]string{
 		"environment": strconv.Itoa(b.Config.EnvironmentID),
+	}
+	if filterConfig != nil {
+		data["service_prefix"] = filterConfig.Prefix
 	}
 	ro := &grequests.RequestOptions{
 		Headers:            b.Headers(),

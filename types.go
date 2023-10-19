@@ -60,6 +60,7 @@ type Transfer struct {
 
 type OutSystemService struct {
 	UniqueID    string   `json:"unique_id"`
+	Prefix      string   `json:"prefix"`
 	Title       string   `json:"title"`
 	Description string   `json:"desciption"`
 	Cost        *float64 `json:"cost"`
@@ -106,7 +107,7 @@ type InSystemTransferParams struct {
 	FeeOnSender  bool
 }
 
-type OutSystemTransfer struct {
+type OutSystemTransferParams struct {
 	UniqueID        string
 	Amount          float64
 	Comment         string
@@ -146,4 +147,8 @@ func (t TransactionFilterConfig) ToParamsMap() map[string]string {
 	}
 
 	return params
+}
+
+type OutSystemServicesFilterConfig struct {
+	Prefix string
 }
