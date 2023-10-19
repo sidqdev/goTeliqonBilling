@@ -152,3 +152,26 @@ func (t TransactionFilterConfig) ToParamsMap() map[string]string {
 type OutSystemServicesFilterConfig struct {
 	Prefix string
 }
+
+type SubscriptionPlan struct {
+	UniqueID           string            `json:"unique_id"`
+	OutSystemService   *OutSystemService `json:"out_system_service"`
+	FirstPaymentAmount float64           `json:"first_payment_amount"`
+	Amount             float64           `json:"amount"`
+	DaysFrequency      int               `json:"days_frequency"`
+}
+
+type Subscription struct {
+	Plan           SubscriptionPlan `json:"plan"`
+	Count          int              `json:"count"`
+	Amount         float64          `json:"amount"`
+	Comment        string           `json:"comment"`
+	FirstPaymentAt time.Time        `json:"first_payment_at"`
+	NextPaymentAt  time.Time        `json:"next_payment_at"`
+	IsActive       bool             `json:"is_active"`
+	IsDisabled     bool             `json:"is_disabled"`
+}
+
+type SubscriptionsFilterConfig struct {
+	Prefix string
+}

@@ -315,6 +315,28 @@ func (b BillingAPI) GetOutSystemService(serviceUniqueID string) (OutSystemServic
 	return service, err
 }
 
+func (b BillingAPI) GetUserSubscriptions(uniqueID string, filterConfig *SubscriptionsFilterConfig) ([]Subscription, error) {
+	data := map[string]string{
+		"environment": strconv.Itoa(b.Config.EnvironmentID),
+		"unique_id":   uniqueID,
+	}
+	if filterConfig != nil {
+		data["service_prefix"] = filterConfig.Prefix
+	}
+	ro := &grequests.RequestOptions{
+		Headers:            b.Headers(),
+		Params:             data,
+		InsecureSkipVerify: true,
+	}
+
+	subscriptions := struct {
+		Subscriptions []Subscription `json:"subscriptions"`
+	}{}
+	err := b.parseResponse(grequests.Get(b.Urls.Subscriptions, ro))(&subscriptions)
+
+	return subscriptions.Subscriptions, err
+}
+
 func NewBillingAPI(config Config) (BillingAPI, error) {
 	billingApi := BillingAPI{
 		Config: config,
