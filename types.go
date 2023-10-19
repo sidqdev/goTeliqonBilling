@@ -159,6 +159,7 @@ type SubscriptionPlan struct {
 	FirstPaymentAmount float64           `json:"first_payment_amount"`
 	Amount             float64           `json:"amount"`
 	DaysFrequency      int               `json:"days_frequency"`
+	Type               string            `json:"type"`
 }
 
 type Subscription struct {
