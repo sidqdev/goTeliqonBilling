@@ -62,7 +62,7 @@ type OutSystemService struct {
 	UniqueID    string   `json:"unique_id"`
 	Prefix      string   `json:"prefix"`
 	Title       string   `json:"title"`
-	Description string   `json:"desciption"`
+	Description string   `json:"description"`
 	Cost        *float64 `json:"cost"`
 }
 
