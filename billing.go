@@ -47,13 +47,16 @@ func (b BillingAPI) CheckResponseOnError(resp *grequests.Response) error {
 		return nil
 	}
 	err_body := ErrorResponse{}
+
 	if err := resp.JSON(&err_body); err != nil {
 		return err
 	}
 	err, ok := ErrorsRegister[err_body.Code]
+
 	if !ok {
 		return errors.New(err_body.Message)
 	}
+
 	return err
 }
 
