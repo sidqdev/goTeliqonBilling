@@ -320,6 +320,7 @@ func (b BillingAPI) GetUserSubscriptions(uniqueID string, filterConfig *Subscrip
 		"environment": strconv.Itoa(b.Config.EnvironmentID),
 		"unique_id":   uniqueID,
 	}
+
 	if filterConfig != nil {
 		data["service_prefix"] = filterConfig.Prefix
 		if filterConfig.OrderBy != "" {
@@ -332,6 +333,7 @@ func (b BillingAPI) GetUserSubscriptions(uniqueID string, filterConfig *Subscrip
 			data["offset"] = strconv.Itoa(filterConfig.Offset)
 		}
 	}
+
 	ro := &grequests.RequestOptions{
 		Headers:            b.Headers(),
 		Params:             data,
