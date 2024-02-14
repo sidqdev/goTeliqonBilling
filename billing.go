@@ -322,6 +322,15 @@ func (b BillingAPI) GetUserSubscriptions(uniqueID string, filterConfig *Subscrip
 	}
 	if filterConfig != nil {
 		data["service_prefix"] = filterConfig.Prefix
+		if filterConfig.OrderBy != "" {
+			data["order_by"] = filterConfig.OrderBy
+		}
+		if filterConfig.Limit != 0 {
+			data["limit"] = strconv.Itoa(filterConfig.Limit)
+		}
+		if filterConfig.Offset != 0 {
+			data["offset"] = strconv.Itoa(filterConfig.Offset)
+		}
 	}
 	ro := &grequests.RequestOptions{
 		Headers:            b.Headers(),
