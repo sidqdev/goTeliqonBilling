@@ -332,6 +332,13 @@ func (b BillingAPI) GetUserSubscriptions(uniqueID string, filterConfig *Subscrip
 		if filterConfig.Offset != 0 {
 			data["offset"] = strconv.Itoa(filterConfig.Offset)
 		}
+		if filterConfig.IsDisabled != nil {
+			if *filterConfig.IsDisabled {
+				data["is_disabled"] = "1"
+			} else {
+				data["is_disabled"] = "0"
+			}
+		}
 	}
 
 	ro := &grequests.RequestOptions{

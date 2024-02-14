@@ -174,8 +174,9 @@ type Subscription struct {
 }
 
 type SubscriptionsFilterConfig struct {
-	Prefix  string
-	OrderBy string
-	Limit   int
-	Offset  int
+	Prefix     string
+	OrderBy    string
+	Limit      int
+	Offset     int
+	IsDisabled *bool
 }
