@@ -78,6 +78,7 @@ type Transaction struct {
 	BalanceAfter     float64           `json:"balance_after"`
 	Transfer         *Transfer         `json:"transfer"`
 	OutSystemService *OutSystemService `json:"out_system_service"`
+	Subscription     Subscription      `json:"subscription"`
 }
 
 type DepositParams struct {
